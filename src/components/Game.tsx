@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { GameResultType } from '../lib/GameResultType';
 import { finder } from '../lib/PinyinFinder';
@@ -11,6 +11,12 @@ function Game(props: any) {
   const [options, setOptions] = useState<string[]>([]);
   const [selectedOption, setSelectedOption] = useState(-1);
   const [numCorrect, setNumCorrect] = useState(0);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [index]);
 
   const handleKeyDown = (event: any) => {
     if (event.key === 'Tab') {
@@ -30,24 +36,7 @@ function Game(props: any) {
       if (selectedOption == -1) {
         return;
       }
-
-      // Validate answer
-      const isCorrect = props.characters[index]['readings'].includes(options[selectedOption]);
-      if (isCorrect) {
-        setNumCorrect(numCorrect + 1);
-      }
-
-      // Reset input, selected option, and options
-      setInputVal('');
-      setSelectedOption(-1);
-      setOptions([]);
-
-      // Update index or handle game end
-      if (index < props.characters.length - 1) {
-        setIndex(index + 1);
-      } else {
-        props.handleGameEnd(new GameResultType(numCorrect, props.characters.length));
-      }
+      submit(options[selectedOption]);
       return;
     } else if (!/^[a-zA-Z]$/.test(event.key)) {
       event.preventDefault();
@@ -56,9 +45,33 @@ function Game(props: any) {
     }
   };
 
+  const submit = (guess: string) => {
+    // Validate answer
+    const isCorrect = props.characters[index]['readings'].includes(guess);
+    if (isCorrect) {
+      setNumCorrect(numCorrect + 1);
+    }
+
+    // Reset input, selected option, and options
+    setInputVal('');
+    setSelectedOption(-1);
+    setOptions([]);
+
+    // Update index or handle game end
+    if (index < props.characters.length - 1) {
+      setIndex(index + 1);
+    } else {
+      props.handleGameEnd(new GameResultType(numCorrect, props.characters.length));
+    }
+  };
+
   const handleInputChange = (event: any) => {
     setInputVal(event.target.value);
     setOptions(finder(event.target.value));
+  };
+
+  const handleOptionClick = (index: number) => {
+    submit(options[index]);
   };
 
   return (
@@ -71,14 +84,21 @@ function Game(props: any) {
         <div className='input'>
           <input
             className='input__field'
+            ref={inputRef}
             onKeyDown={handleKeyDown}
             onChange={handleInputChange}
             value={inputVal}
+            spellCheck='false'
+            autoComplete='off'
           ></input>
           {options && options.length > 0 ? (
             <div className='input__option-container'>
               {options.map((option, index) => (
-                <div className={`input__option ${index == selectedOption ? 'input__option--selected' : ''}`} key={index}>
+                <div
+                  className={`input__option ${index == selectedOption ? 'input__option--selected' : ''}`}
+                  key={index}
+                  onClick={() => handleOptionClick(index)}
+                >
                   {option}
                 </div>
               ))}
