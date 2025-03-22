@@ -1,8 +1,13 @@
+import Game from "../components/Game";
+import { CharacterList } from "../lib/CharacterList";
+
 function MainPage() {
     return (
-        <div>
-            Test
+        <>
+        <div className="page-container">
+            <Game list={CharacterList} />
         </div>
+        </>
     )
 }
 
