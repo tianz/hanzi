@@ -1,6 +1,6 @@
 {
-  "homepage": "http://tianz.github.io/hanzi",
   "name": "hanzi",
+  "homepage": "http://tianz.github.io/hanzi",
   "private": true,
   "version": "0.0.0",
   "type": "module",
