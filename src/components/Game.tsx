@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { GameResultType } from '../lib/GameResultType';
 import { finder } from '../lib/PinyinFinder';
 
 import './Game.css';
@@ -45,7 +46,7 @@ function Game(props: any) {
       if (index < props.characters.length - 1) {
         setIndex(index + 1);
       } else {
-        props.handleGameEnd();
+        props.handleGameEnd(new GameResultType(numCorrect, props.characters.length));
       }
       return;
     } else if (!/^[a-zA-Z]$/.test(event.key)) {
@@ -62,7 +63,9 @@ function Game(props: any) {
 
   return (
     <>
-      <div>Score: {numCorrect} / {index}</div>
+      <div>
+        Score: {numCorrect} / {index}
+      </div>
       <div>{props.characters[index]['character']}</div>
       <div className='game'>
         <div className='input'>
