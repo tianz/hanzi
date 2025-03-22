@@ -78,7 +78,7 @@ function Game(props: any) {
           {options && options.length > 0 ? (
             <div className='input__option-container'>
               {options.map((option, index) => (
-                <div className={`input__option ${index == selectedOption ? 'input__option-selected' : ''}`} key={index}>
+                <div className={`input__option ${index == selectedOption ? 'input__option--selected' : ''}`} key={index}>
                   {option}
                 </div>
               ))}
