@@ -5,3 +5,14 @@
   padding: 1px 8px;
   vertical-align: middle;
 }
+
+.input__option-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.input__option {
+  border: 1px solid black;
+  border-radius: 8px;
+  height: 30px;
+}

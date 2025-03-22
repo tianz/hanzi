@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import '../lib/PinyinFinder';
 import { finder } from '../lib/PinyinFinder';
 
 import './Game.css';
@@ -27,10 +26,18 @@ function Game(props: any) {
       <div>
         <div className='input'>
           <input className='input__field' onChange={handleInputChange} value={inputVal}></input>
-          {options && options.length > 0 ? options.map((option, index) => <div>{option}</div>) : <div></div>}
-        </div>
-        <div className='input__button' onClick={handleGuess}>
-          确认
+          {options && options.length > 0 ? (
+            <div className='input__option-container'>
+              {options.map((option, index) => (
+                <div className='input__option' key={index}>
+                  {option}
+                </div>
+              ))}
+            </div>
+          ) : null}
+          <div className='input__button' onClick={handleGuess}>
+            确认
+          </div>
         </div>
       </div>
     </>
