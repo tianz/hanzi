@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
-import './GameSetup.css';
 import { CharacterList } from '../lib/CharacterList';
+
+import './GameSetup.css';
 
 function GameSetup(props: any) {
   const questionCounts = [5, 50, 100, 200];
@@ -20,7 +21,7 @@ function GameSetup(props: any) {
     }
 
     return characters.slice(0, count);
-  }
+  };
 
   const handleGameStart = () => {
     if (questionCountIndex >= 0) {
