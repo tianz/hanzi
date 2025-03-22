@@ -1,10 +1,8 @@
-import './PinyinList';
-import { PinyinList } from './PinyinList';
+import pinyinJson from './PinyinList.json';
 
 export let finder = (input: string) => {
-  if (input in PinyinList) {
-    console.log(PinyinList[input]);
-    return PinyinList[input];
+  if (input in pinyinJson) {
+    return pinyinJson[input as keyof typeof pinyinJson];
   }
   return [];
 };

@@ -9,7 +9,7 @@ function Game(props: any) {
   const [inputVal, setInputVal] = useState('');
   const [options, setOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState(-1);
-  const [selectedTone, setSelectedTone] = useState(-1);
+  // const [selectedTone, setSelectedTone] = useState(-1);
 
   const handleKeyDown = (event: any) => {
     if (event.key === 'Tab') {
