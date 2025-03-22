@@ -35,6 +35,8 @@ function Game(props: any) {
       setOptions([]);
       if (index < props.characters.length - 1) {
         setIndex(index + 1);
+      } else {
+        props.handleGameEnd();
       }
       return;
     } else if (!/^[a-zA-Z]$/.test(event.key)) {
