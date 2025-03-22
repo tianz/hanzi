@@ -21,7 +21,7 @@ function Game(props: any) {
     } else {
       inputRef.current?.focus();
     }
-  }, [numCorrect, index, gameEnded]);
+  }, [numCorrect, gameEnded]);
 
   const handleKeyDown = (event: any) => {
     if (event.key === 'Tab') {
@@ -35,17 +35,16 @@ function Game(props: any) {
       }
     } else if (event.key === 'Backspace') {
       setSelectedOption(-1);
-      return;
     } else if (event.key === 'Enter') {
       // Make sure an option is selected as answer
       if (selectedOption == -1) {
         return;
       }
       submit(options[selectedOption]);
-      return;
     } else if (!/^[a-zA-Z]$/.test(event.key)) {
       event.preventDefault();
     } else {
+      // Valid input, reset selected option
       setSelectedOption(-1);
     }
   };

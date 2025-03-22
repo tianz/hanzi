@@ -33,7 +33,7 @@ function MainPage() {
     <>
       <div className='page-container'>
         <div className='title'>
-          汉字<span>G7!</span>
+          汉字<span>G0!</span>
         </div>
         {status === 'new-game' && <GameSetup handleGameStart={handleGameStart} />}
         {status === 'in-game' && <Game characters={characters} handleGameEnd={handleGameEnd} />}
