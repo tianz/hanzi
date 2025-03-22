@@ -26,11 +26,16 @@ function Game(props: any) {
       setSelectedOption(-1);
       return;
     } else if (event.key === 'Enter') {
+      if (selectedOption == -1) {
+        return;
+      }
       console.log('Submit');
       setSelectedOption(-1);
-      setIndex(index + 1);
       setInputVal('');
       setOptions([]);
+      if (index < props.characters.length - 1) {
+        setIndex(index + 1);
+      }
       return;
     } else if (!/^[a-zA-Z]$/.test(event.key)) {
       event.preventDefault();
@@ -44,15 +49,9 @@ function Game(props: any) {
     setOptions(finder(event.target.value));
   };
 
-  const handleGuess = () => {
-    if (index < props.list.length - 1) {
-      setIndex(index + 1);
-    }
-  };
-
   return (
     <>
-      <div>{props.list[index]['character']}</div>
+      <div>{props.characters[index]['character']}</div>
       <div className='game'>
         <div className='input'>
           <input
@@ -70,9 +69,6 @@ function Game(props: any) {
               ))}
             </div>
           ) : null}
-          {/* <div className='input__button' onClick={handleGuess}>
-            确认
-          </div> */}
         </div>
       </div>
     </>

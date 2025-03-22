@@ -9,9 +9,11 @@ import './MainPage.css';
 
 function MainPage() {
   const [status, setStatus] = useState('new-game');
+  const [characters, setCharacters] = useState([]);
 
-  const handleGameStart = (questionCount: number) => {
-    console.log(`New game with ${questionCount} questions`);
+  const handleGameStart = (characters) => {
+    console.log(`New game with ${characters.length} questions`);
+    setCharacters(characters);
     setStatus('in-game');
   };
 
@@ -22,7 +24,7 @@ function MainPage() {
           汉字<span>GO!</span>
         </div>
         {status === 'new-game' && <GameSetup handleGameStart={handleGameStart} />}
-        {status === 'in-game' && <Game list={CharacterList} />}
+        {status === 'in-game' && <Game characters={characters} />}
       </div>
     </>
   );

@@ -1,9 +1,10 @@
 import { useState } from 'react';
 
 import './GameSetup.css';
+import { CharacterList } from '../lib/CharacterList';
 
 function GameSetup(props: any) {
-  const questionCounts = [50, 100, 200];
+  const questionCounts = [5, 50, 100, 200];
 
   const [questionCountIndex, setQuestionCountIndex] = useState(-1);
 
@@ -11,9 +12,19 @@ function GameSetup(props: any) {
     setQuestionCountIndex(index);
   };
 
+  const pickHanzi = (count: number) => {
+    const characters = structuredClone(CharacterList);
+    for (let i = characters.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [characters[i], characters[j]] = [characters[j], characters[i]];
+    }
+
+    return characters.slice(0, count);
+  }
+
   const handleGameStart = () => {
     if (questionCountIndex >= 0) {
-      props.handleGameStart(questionCounts[questionCountIndex]);
+      props.handleGameStart(pickHanzi(questionCounts[questionCountIndex]));
     }
   };
 
