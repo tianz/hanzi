@@ -4,19 +4,19 @@ import Game from '../components/Game';
 import GameResult from '../components/GameResult';
 import GameSetup from '../components/GameSetup';
 
-import { CharacterList } from '../lib/CharacterList';
+import { Character } from '../lib/CharacterList';
 
 import './MainPage.css';
 
 function MainPage() {
   const [status, setStatus] = useState('new-game');
-  const [characters, setCharacters] = useState([]);
+  const [characters, setCharacters] = useState<Character[]>([]);
 
   const handleNewGame = () => {
     setStatus('new-game');
   };
 
-  const handleGameStart = characters => {
+  const handleGameStart = (characters: Character[]) => {
     console.log(`New game with ${characters.length} questions`);
     setCharacters(characters);
     setStatus('in-game');

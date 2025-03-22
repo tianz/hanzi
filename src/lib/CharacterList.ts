@@ -1,4 +1,9 @@
-export let CharacterList = [
+export type Character = {
+  character: string;
+  readings: string[];
+};
+
+export let CharacterList: Character[] = [
   {
     character: '一',
     readings: ['yī'],
