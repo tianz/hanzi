@@ -5,15 +5,16 @@ import './GameSetup.css';
 function GameSetup(props: any) {
   const questionCounts = [50, 100, 200];
 
-  const [questionCount, setQuestionCount] = useState(0);
+  const [questionCountIndex, setQuestionCountIndex] = useState(-1);
 
   const selectQuestionCount = (index: number) => {
-    console.log(index);
-    setQuestionCount(questionCounts[index]);
+    setQuestionCountIndex(index);
   };
 
   const handleGameStart = () => {
-    props.handleGameStart(questionCount);
+    if (questionCountIndex >= 0) {
+      props.handleGameStart(questionCounts[questionCountIndex]);
+    }
   };
 
   return (
@@ -22,7 +23,11 @@ function GameSetup(props: any) {
       <div>题目数量</div>
       <div className='input__option-container'>
         {questionCounts.map((option, index) => (
-          <div className='input__option' key={index} onClick={() => selectQuestionCount(index)}>
+          <div
+            className={`input__option ${questionCountIndex == index ? 'input__option--selected' : ''}`}
+            key={index}
+            onClick={() => selectQuestionCount(index)}
+          >
             {option}
           </div>
         ))}
