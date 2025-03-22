@@ -7,7 +7,7 @@ import './Game.css';
 function Game(props: any) {
   const [index, setIndex] = useState(0);
   const [inputVal, setInputVal] = useState('');
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState<string[]>([]);
   const [selectedOption, setSelectedOption] = useState(-1);
   // const [selectedTone, setSelectedTone] = useState(-1);
 
