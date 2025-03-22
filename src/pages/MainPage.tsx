@@ -6,6 +6,7 @@ function MainPage() {
   return (
     <>
       <div className='page-container'>
+        <div>汉字Go</div>
         <Game list={CharacterList} />
       </div>
     </>
