@@ -53,7 +53,7 @@ function Game(props: any) {
   return (
     <>
       <div>{props.list[index]['character']}</div>
-      <div>
+      <div className='game'>
         <div className='input'>
           <input
             className='input__field'

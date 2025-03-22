@@ -1,4 +1,4 @@
-.input__button {
+.game .input__button {
   border: 1px solid black;
   border-radius: 8px;
   height: 30px;
@@ -6,17 +6,17 @@
   vertical-align: middle;
 }
 
-.input__option-container {
+.game .input__option-container {
   display: flex;
   justify-content: flex-start;
 }
 
-.input__option {
+.game .input__option {
   border: 1px solid black;
   border-radius: 8px;
   height: 30px;
 }
 
-.input__option-selected {
+.game .input__option-selected {
   border: 1px solid red;
 }
