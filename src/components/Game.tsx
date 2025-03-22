@@ -9,7 +9,7 @@ function Game(props: any) {
   const [inputVal, setInputVal] = useState('');
   const [options, setOptions] = useState<string[]>([]);
   const [selectedOption, setSelectedOption] = useState(-1);
-  // const [selectedTone, setSelectedTone] = useState(-1);
+  const [numCorrect, setNumCorrect] = useState(0);
 
   const handleKeyDown = (event: any) => {
     if (event.key === 'Tab') {
@@ -20,19 +20,28 @@ function Game(props: any) {
         } else {
           setSelectedOption(selectedOption + 1);
         }
-        console.log(selectedOption);
       }
     } else if (event.key === 'Backspace') {
       setSelectedOption(-1);
       return;
     } else if (event.key === 'Enter') {
+      // Make sure an option is selected as answer
       if (selectedOption == -1) {
         return;
       }
-      console.log('Submit');
-      setSelectedOption(-1);
+
+      // Validate answer
+      const isCorrect = props.characters[index]['readings'].includes(options[selectedOption]);
+      if (isCorrect) {
+        setNumCorrect(numCorrect + 1);
+      }
+
+      // Reset input, selected option, and options
       setInputVal('');
+      setSelectedOption(-1);
       setOptions([]);
+
+      // Update index or handle game end
       if (index < props.characters.length - 1) {
         setIndex(index + 1);
       } else {
@@ -53,6 +62,7 @@ function Game(props: any) {
 
   return (
     <>
+      <div>Score: {numCorrect} / {index}</div>
       <div>{props.characters[index]['character']}</div>
       <div className='game'>
         <div className='input'>
