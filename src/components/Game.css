@@ -16,3 +16,7 @@
   border-radius: 8px;
   height: 30px;
 }
+
+.input__option-selected {
+  border: 1px solid red;
+}

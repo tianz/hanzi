@@ -6,4 +6,5 @@ export let finder = (input: string) => {
     console.log(PinyinList[input]);
     return PinyinList[input];
   }
+  return [];
 };
