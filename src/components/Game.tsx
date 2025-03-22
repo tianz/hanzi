@@ -11,12 +11,17 @@ function Game(props: any) {
   const [options, setOptions] = useState<string[]>([]);
   const [selectedOption, setSelectedOption] = useState(-1);
   const [numCorrect, setNumCorrect] = useState(0);
+  const [gameEnded, setGameEnded] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    inputRef.current?.focus();
-  }, [index]);
+    if (gameEnded) {
+      props.handleGameEnd(new GameResultType(numCorrect, props.characters.length));
+    } else {
+      inputRef.current?.focus();
+    }
+  }, [numCorrect, index, gameEnded]);
 
   const handleKeyDown = (event: any) => {
     if (event.key === 'Tab') {
@@ -61,7 +66,7 @@ function Game(props: any) {
     if (index < props.characters.length - 1) {
       setIndex(index + 1);
     } else {
-      props.handleGameEnd(new GameResultType(numCorrect, props.characters.length));
+      setGameEnded(true);
     }
   };
 
@@ -90,6 +95,7 @@ function Game(props: any) {
             value={inputVal}
             spellCheck='false'
             autoComplete='off'
+            autoCorrect='off'
           ></input>
           {options && options.length > 0 ? (
             <div className='input__option-container'>
