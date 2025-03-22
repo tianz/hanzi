@@ -4,18 +4,21 @@ import GameSetup from '../components/GameSetup';
 
 import { CharacterList } from '../lib/CharacterList';
 
+import './MainPage.css';
+
 function MainPage() {
   const [status, setStatus] = useState('new-game');
 
-  const handleGameStart = () => {
+  const handleGameStart = (questionCount: number) => {
+    console.log(`New game with ${questionCount} questions`)
     setStatus('in-game');
   };
 
   return (
     <>
       <div className='page-container'>
-        <div>汉字Go</div>
-        {status === 'new-game' && <GameSetup onStart={handleGameStart}/>}
+        <div className='title'>汉字<span>GO!</span></div>
+        {status === 'new-game' && <GameSetup handleGameStart={handleGameStart}/>}
         {status === 'in-game' && <Game list={CharacterList} />}
       </div>
     </>
