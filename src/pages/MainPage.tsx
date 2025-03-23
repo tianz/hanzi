@@ -49,7 +49,7 @@ function MainPage() {
     <>
       <div className='page-container'>
         <div className='title'>
-          汉字<span>G0!</span>
+          汉字<span>GO!</span>
         </div>
         {status === 'new-game' && (
           <GameSetup
