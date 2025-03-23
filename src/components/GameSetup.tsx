@@ -1,17 +1,20 @@
 import { useState } from 'react';
+import seedrandom from 'seedrandom';
 
 import { CharacterList } from '../lib/CharacterList';
-
-import seedrandom from 'seedrandom';
 
 import './GameSetup.css';
 
 function GameSetup(props: any) {
   const questionCounts = [1, 5, 50, 100, 200];
+  const allowChangingCount = props.opponentResult == null;
 
-  const [questionCountIndex, setQuestionCountIndex] = useState(-1);
+  const [questionCountIndex, setQuestionCountIndex] = useState(allowChangingCount ? -1 : questionCounts.indexOf(props.opponentResult.guesses.length));
 
   const selectQuestionCount = (index: number) => {
+    if (!allowChangingCount) {
+      return;
+    }
     setQuestionCountIndex(index);
   };
 

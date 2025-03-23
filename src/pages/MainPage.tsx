@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import Game from '../components/Game';
 import GameResult from '../components/GameResult';
@@ -18,16 +18,15 @@ function MainPage() {
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const battleId = queryParams.get('battleId');
+  const battleId = queryParams.get('battleId') || '';
 
   useEffect(() => {
-    if (battleId) {
-      setSeed(0)
+    if (battleId !== '') {
+      setSeed(JSON.parse(decodeURIComponent(escape(atob(battleId)))).seed);
     } else {
-      setSeed(Math.floor(Math.random() * 9999999999999))
-
+      setSeed(Math.floor(Math.random() * 9999999999999));
     }
-  }, [])
+  }, []);
 
   const handleNewGame = () => {
     setStatus('new-game');
@@ -51,7 +50,7 @@ function MainPage() {
           汉字<span>G0!</span>
         </div>
         <div>{battleId}</div>
-        {status === 'new-game' && <GameSetup seed={seed} handleGameStart={handleGameStart} />}
+        {status === 'new-game' && <GameSetup seed={seed} opponentResult={battleId !== '' ? JSON.parse(decodeURIComponent(escape(atob(battleId)))) : null} handleGameStart={handleGameStart} />}
         {status === 'in-game' && <Game characters={characters} handleGameEnd={handleGameEnd} />}
         {status === 'game-result' && <GameResult result={result} seed={seed} handleNewGame={handleNewGame} />}
       </div>

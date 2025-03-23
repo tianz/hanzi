@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { HistoryEntry } from '../lib/HistoryEntry';
 
 import './GameResult.css';
@@ -17,17 +18,18 @@ function GameResult(props: any) {
 
   const handleShareLink = () => {
     const battleId = {
-      'seed': props.seed,
-      'guesses': props.result.map((value, index) => value.guess),
+      seed: props.seed,
+      guesses: props.result.map((value: HistoryEntry) => value.guess),
     };
 
-    navigator.clipboard.writeText(JSON.stringify(battleId));
+    const base = window.location.host + window.location.pathname + '?battleId=';
+    navigator.clipboard.writeText(base + btoa(unescape(encodeURIComponent(JSON.stringify(battleId)))));
     setShowPopup(true);
 
     setTimeout(() => {
       setShowPopup(false);
     }, 1000);
-  }
+  };
 
   return (
     <div className='game-result'>
@@ -40,11 +42,10 @@ function GameResult(props: any) {
           </div>
         ))}
       </div>
-      <a className='share' onClick={handleShareLink}>点击此处复制链接分享给好友</a>
-      {/* JSON: {JSON.stringify({'seed': props.seed, 'guesses': props.result.map((value, index)=> value.guess)})}
-      ID: {btoa(unescape(encodeURIComponent(JSON.stringify({'seed': props.seed, 'guesses': props.result.map((value, index)=> value.guess)}))))} */}
+      <a className='share' onClick={handleShareLink}>
+        点击此处复制链接分享给好友
+      </a>
       <button onClick={() => props.handleNewGame()}>Start</button>
-
       {showPopup && (
         <div className='popup'>
           <p>链接已复制</p>
