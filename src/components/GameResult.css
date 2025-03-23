@@ -1,0 +1,7 @@
+.game-result .correct {
+  color: green;
+}
+
+.game-result .incorrect {
+  color: red;
+}

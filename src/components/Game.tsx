@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { GameResultType } from '../lib/GameResultType';
+import { HistoryEntry } from '../lib/HistoryEntry';
 import { finder } from '../lib/PinyinFinder';
 
 import './Game.css';
@@ -12,12 +12,13 @@ function Game(props: any) {
   const [selectedOption, setSelectedOption] = useState(-1);
   const [numCorrect, setNumCorrect] = useState(0);
   const [gameEnded, setGameEnded] = useState(false);
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (gameEnded) {
-      props.handleGameEnd(new GameResultType(numCorrect, props.characters.length));
+      props.handleGameEnd(history);
     } else {
       inputRef.current?.focus();
     }
@@ -50,6 +51,9 @@ function Game(props: any) {
   };
 
   const submit = (guess: string) => {
+    // Save to history
+    setHistory([...history, new HistoryEntry(props.characters[index], guess)]);
+
     // Validate answer
     const isCorrect = props.characters[index]['readings'].includes(guess);
     if (isCorrect) {

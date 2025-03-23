@@ -5,7 +5,7 @@ import { CharacterList } from '../lib/CharacterList';
 import './GameSetup.css';
 
 function GameSetup(props: any) {
-  const questionCounts = [5, 50, 100, 200];
+  const questionCounts = [1, 5, 50, 100, 200];
 
   const [questionCountIndex, setQuestionCountIndex] = useState(-1);
 

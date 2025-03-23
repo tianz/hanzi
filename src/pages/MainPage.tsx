@@ -5,14 +5,14 @@ import GameResult from '../components/GameResult';
 import GameSetup from '../components/GameSetup';
 
 import { Character } from '../lib/CharacterList';
-import { GameResultType } from '../lib/GameResultType';
+import { HistoryEntry } from '../lib/HistoryEntry';
 
 import './MainPage.css';
 
 function MainPage() {
   const [status, setStatus] = useState('new-game');
   const [characters, setCharacters] = useState<Character[]>([]);
-  const [result, setResult] = useState<GameResultType>();
+  const [result, setResult] = useState<HistoryEntry[]>();
 
   const handleNewGame = () => {
     setStatus('new-game');
@@ -24,9 +24,9 @@ function MainPage() {
     setStatus('in-game');
   };
 
-  const handleGameEnd = (result: GameResultType) => {
+  const handleGameEnd = (history: HistoryEntry[]) => {
     setStatus('game-result');
-    setResult(result);
+    setResult(history);
   };
 
   return (
