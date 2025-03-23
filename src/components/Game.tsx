@@ -87,8 +87,8 @@ function Game(props: any) {
       <div>
         Score: {numCorrect} / {index}
       </div>
-      <div>{props.characters[index]['character']}</div>
       <div className='game'>
+        <div className='character'>{props.characters[index]['character']}</div>
         <div className='input'>
           <input
             className='input__field'

@@ -1,3 +1,7 @@
+.game .character {
+  font-size: 60px;
+}
+
 .game .input__field {
   font-size: 16px;
 }
