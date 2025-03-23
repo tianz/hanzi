@@ -21,6 +21,7 @@ function GameResult(props: any) {
       seed: props.seed,
       playerName: props.playerName,
       guesses: props.result.map((value: HistoryEntry) => value.guess),
+      numCorrect: numCorrect,
     };
 
     const base = window.location.host + window.location.pathname + '?battleId=';
@@ -56,7 +57,37 @@ function GameResult(props: any) {
           )}
         </div>
       ) : (
-        <div>TODO</div>
+        <div>
+          <table>
+            <tbody>
+              <tr>
+                <th></th>
+                <th>{props.playerName}</th>
+                <th>{props.opponentResult.playerName}</th>
+              </tr>
+              <tr>
+                <td>得分</td>
+                <td>{`${numCorrect} / ${total}`}</td>
+                <td>{`${props.opponentResult.numCorrect} / ${total}`}</td>
+              </tr>
+              {props.result.map((value: HistoryEntry, index: number) => (
+                <tr key={index}>
+                  <td>{`${value.character.character} (${value.character.readings.join(', ')})`}</td>
+                  <td>
+                    <span className={`${value.isCorrect ? 'correct' : 'incorrect'}`}>{value.guess}</span>
+                  </td>
+                  <td>
+                    <span
+                      className={value.character.readings.includes(props.opponentResult.guesses[index]) ? 'correct' : 'incorrect'}
+                    >
+                      {props.opponentResult.guesses[index]}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

@@ -51,7 +51,6 @@ function MainPage() {
         <div className='title'>
           汉字<span>G0!</span>
         </div>
-        <div>{battleId}</div>
         {status === 'new-game' && (
           <GameSetup
             seed={seed}
