@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Game from '../components/Game';
 import GameResult from '../components/GameResult';
@@ -13,6 +14,10 @@ function MainPage() {
   const [status, setStatus] = useState('new-game');
   const [characters, setCharacters] = useState<Character[]>([]);
   const [result, setResult] = useState<HistoryEntry[]>();
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const battleId = queryParams.get('battleId');
 
   const handleNewGame = () => {
     setStatus('new-game');
@@ -35,6 +40,7 @@ function MainPage() {
         <div className='title'>
           汉字<span>G0!</span>
         </div>
+        <div>{battleId}</div>
         {status === 'new-game' && <GameSetup handleGameStart={handleGameStart} />}
         {status === 'in-game' && <Game characters={characters} handleGameEnd={handleGameEnd} />}
         {status === 'game-result' && <GameResult result={result} handleNewGame={handleNewGame} />}

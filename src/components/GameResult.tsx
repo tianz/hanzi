@@ -24,7 +24,7 @@ function GameResult(props: any) {
         ))}
       </div>
       <button onClick={() => props.handleNewGame()}>Start</button>
-      </div>
+    </div>
   );
 }
 
