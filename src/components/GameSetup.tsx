@@ -25,7 +25,7 @@ function GameSetup(props: any) {
   const pickHanzi = (count: number) => {
     const rng = seedrandom(props.seed);
     const characters = structuredClone(CharacterList);
-    for (let i = characters.length - 4000; i > 0; i--) {
+    for (let i = characters.length - 1; i > 0; i--) {
       const j = Math.floor(rng() * (i + 1));
       [characters[i], characters[j]] = [characters[j], characters[i]];
     }
