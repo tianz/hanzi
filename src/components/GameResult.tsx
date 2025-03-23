@@ -19,6 +19,7 @@ function GameResult(props: any) {
   const handleShareLink = () => {
     const battleId = {
       seed: props.seed,
+      playerName: props.playerName,
       guesses: props.result.map((value: HistoryEntry) => value.guess),
     };
 
@@ -33,23 +34,29 @@ function GameResult(props: any) {
 
   return (
     <div className='game-result'>
-      Score: {`${numCorrect} / ${total}`}
-      <div>
-        {props.result.map((value: HistoryEntry, index: number) => (
-          <div key={index}>
-            {`${value.character.character} (${value.character.readings.join(', ')})`}:{' '}
-            <span className={`${value.isCorrect ? 'correct' : 'incorrect'}`}>{value.guess}</span>
+      {props.opponentResult == null ? (
+        <div>
+          Score: {`${numCorrect} / ${total}`}
+          <div>
+            {props.result.map((value: HistoryEntry, index: number) => (
+              <div key={index}>
+                {`${value.character.character} (${value.character.readings.join(', ')})`}:{' '}
+                <span className={`${value.isCorrect ? 'correct' : 'incorrect'}`}>{value.guess}</span>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <a className='share' onClick={handleShareLink}>
-        点击此处复制链接分享给好友
-      </a>
-      <button onClick={() => props.handleNewGame()}>Start</button>
-      {showPopup && (
-        <div className='popup'>
-          <p>链接已复制</p>
+          <a className='share' onClick={handleShareLink}>
+            点击此处复制链接分享给好友
+          </a>
+          <button onClick={() => props.handleNewGame()}>Start</button>
+          {showPopup && (
+            <div className='popup'>
+              <p>链接已复制</p>
+            </div>
+          )}
         </div>
+      ) : (
+        <div>TODO</div>
       )}
     </div>
   );

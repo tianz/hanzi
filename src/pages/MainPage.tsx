@@ -15,6 +15,7 @@ function MainPage() {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [result, setResult] = useState<HistoryEntry[]>();
   const [seed, setSeed] = useState(0);
+  const [playerName, setPlayerName] = useState('');
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -32,9 +33,10 @@ function MainPage() {
     setStatus('new-game');
   };
 
-  const handleGameStart = (characters: Character[]) => {
+  const handleGameStart = (name: string, characters: Character[]) => {
     console.log(`New game with ${characters.length} questions`);
     setCharacters(characters);
+    setPlayerName(name);
     setStatus('in-game');
   };
 
@@ -50,9 +52,23 @@ function MainPage() {
           汉字<span>G0!</span>
         </div>
         <div>{battleId}</div>
-        {status === 'new-game' && <GameSetup seed={seed} opponentResult={battleId !== '' ? JSON.parse(decodeURIComponent(escape(atob(battleId)))) : null} handleGameStart={handleGameStart} />}
+        {status === 'new-game' && (
+          <GameSetup
+            seed={seed}
+            opponentResult={battleId !== '' ? JSON.parse(decodeURIComponent(escape(atob(battleId)))) : null}
+            handleGameStart={handleGameStart}
+          />
+        )}
         {status === 'in-game' && <Game characters={characters} handleGameEnd={handleGameEnd} />}
-        {status === 'game-result' && <GameResult result={result} seed={seed} handleNewGame={handleNewGame} />}
+        {status === 'game-result' && (
+          <GameResult
+            opponentResult={battleId !== '' ? JSON.parse(decodeURIComponent(escape(atob(battleId)))) : null}
+            result={result}
+            playerName={playerName}
+            seed={seed}
+            handleNewGame={handleNewGame}
+          />
+        )}
       </div>
     </>
   );

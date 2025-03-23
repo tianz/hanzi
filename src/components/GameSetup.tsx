@@ -6,10 +6,14 @@ import { CharacterList } from '../lib/CharacterList';
 import './GameSetup.css';
 
 function GameSetup(props: any) {
+  const [inputVal, setInputVal] = useState('');
+
   const questionCounts = [1, 5, 50, 100, 200];
   const allowChangingCount = props.opponentResult == null;
 
-  const [questionCountIndex, setQuestionCountIndex] = useState(allowChangingCount ? -1 : questionCounts.indexOf(props.opponentResult.guesses.length));
+  const [questionCountIndex, setQuestionCountIndex] = useState(
+    allowChangingCount ? -1 : questionCounts.indexOf(props.opponentResult.guesses.length),
+  );
 
   const selectQuestionCount = (index: number) => {
     if (!allowChangingCount) {
@@ -30,14 +34,29 @@ function GameSetup(props: any) {
   };
 
   const handleGameStart = () => {
-    if (questionCountIndex >= 0) {
-      props.handleGameStart(pickHanzi(questionCounts[questionCountIndex]));
+    if (inputVal !== '' && questionCountIndex >= 0) {
+      props.handleGameStart(inputVal, pickHanzi(questionCounts[questionCountIndex]));
     }
+  };
+
+  const handleInputChange = (event: any) => {
+    setInputVal(event.target.value);
   };
 
   return (
     <div className='setup'>
-      <div className='title'>新游戏</div>
+      <div className='title'>{props.opponentResult ? `挑战 ${props.opponentResult.playerName}` : '新游戏'}</div>
+      <div>你的名字</div>
+      <div>
+        <input
+          className='input__field'
+          value={inputVal}
+          onChange={handleInputChange}
+          spellCheck='false'
+          autoComplete='off'
+          autoCorrect='off'
+        ></input>
+      </div>
       <div>题目数量</div>
       <div className='input__option-container'>
         {questionCounts.map((option, index) => (
